@@ -82,10 +82,23 @@ Parameters:
  * callback function getWinners
  * callback function getYears
  */
+let x = getFinals();
 
-function getWinnersByYear(callback1, callback2) {}
+function getWinnersByYear(callback1, callback2) {
+  for (let i = 0; i < callback1.length; i++) {
+    if (callback2[i].includes("Tie game")) {
+      console.log(
+        `In ${callback1[i].Year}, nobody won the world cup, it was a tie!`
+      );
+    } else {
+      console.log(
+        `In ${callback1[i].Year}, ${callback2[i]} won the world cup!`
+      );
+    }
+  }
+}
 
-getWinnersByYear();
+getWinnersByYear(getYears(x), getWinners(x));
 
 /* Task 6: Write a function called `getAverageGoals` that accepts a parameter `data` and returns the the average number of home team goals and away team goals scored per match (Hint: use .reduce and do this in 2 steps) */
 
