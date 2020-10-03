@@ -60,15 +60,19 @@ function getWinners(callback) {
     };
   });
 
+  const noScore = callback.map((item) => {
+    return {
+      Conditional: item["Win conditions"],
+    };
+  });
+
   for (let i = 0; i < callback.length; i++) {
     if (homeTeam[i].Score > awayTeam[i].Score) {
       winners.push(homeTeam[i].Country);
     } else if (homeTeam[i].Score < awayTeam[i].Score) {
       winners.push(awayTeam[i].Country);
     } else if (homeTeam[i].Score === awayTeam[i].Score) {
-      winners.push(
-        `Tie game between Home Team, ${homeTeam[i].Country}, and Away Team, ${awayTeam[i].Country}`
-      );
+      winners.push(`Tie game, ${noScore[i].Conditional}`);
     }
   }
   return winners;
@@ -87,9 +91,7 @@ let x = getFinals();
 function getWinnersByYear(callback1, callback2) {
   for (let i = 0; i < callback1.length; i++) {
     if (callback2[i].includes("Tie game")) {
-      console.log(
-        `In ${callback1[i].Year}, nobody won the world cup, it was a tie!`
-      );
+      console.log(`In ${callback1[i].Year}, ${callback2[i]}`);
     } else {
       console.log(
         `In ${callback1[i].Year}, ${callback2[i]} won the world cup!`
@@ -110,8 +112,6 @@ function getAverageGoals(data) {
   const awayTeamAvg = data.reduce((total, item) => {
     return total + item["Away Team Goals"];
   }, 0);
-  //   console.log(total + item["Away Team Goals"]);
-  // }, 0);
 
   console.log(
     `Average Home Team Goals: ${(homeTeamAvg / data.length).toFixed(
